@@ -1,0 +1,75 @@
+Link to deploy from client
+http://stackoverflow.com/questions/20118783/web-deploy-from-visual-studio-2012-to-a-remote-iis-8-server
+--------------------------------
+Link to setup server. Download web deploy tool externally and install it.
+https://www.iis.net/learn/publish/troubleshooting-web-deploy/troubleshooting-web-deploy-problems-with-visual-studio
+
+--------------------------------
+Make sure service is started:
+https://forums.asp.net/t/1674772.aspx link helped for:
+Severity	Code	Description	Project	File	Line	Suppression State
+Error		Web deployment task failed. (Could not connect to the remote computer ("10.35.34.16"). On the remote computer, make sure that Web Deploy is installed and that the required process ("Web Deployment Agent Service") is started.  Learn more at: http://go.microsoft.com/fwlink/?LinkId=221672#ERROR_DESTINATION_NOT_REACHABLE.)	BconeADProvisioning		0	
+
+--------------------------------
+Server : http://10.35.34.16
+Site Name: Demo
+User nane: administrator
+password: Lonand123#
+Destination URL: http://10.35.34.16:8172/msdeploy.axd
+--------------------------------
+.Net v4.5 needs to be installed. permission error
+http://stackoverflow.com/questions/13123861/error-in-protocol-mapping-while-hosting-a-wcf-service-in-iis
+
+http://stackoverflow.com/questions/4890245/how-to-add-asp-net-4-0-as-application-pool-on-iis-7-windows-7
+
+IMP command: aspnet_regiis.exe -ir
+--------------------------------
+
+SSL enable on WCF link
+http://stackoverflow.com/questions/29246633/how-to-enable-https-on-wcf-restful-service
+1. Service model in web.config looks as below:
+ <system.serviceModel >
+  <services>
+     <service name="WcfRestfulService.HttpService"
+              behaviorConfiguration="ServiceBehaviour" >
+         <endpoint address="" 
+                   binding="webHttpBinding"
+                   <!-- Add reference to secure WebHttpBinding config -->
+                   bindingConfiguration="webHttpTransportSecurity"
+                   behaviorConfiguration="web"
+                   contract="WcfRestfulService.IHttpService" />
+         <!-- Need to make sure that our metadata 
+              publishing endpoint is using HTTPS as well -->
+         <endpoint address="mex"
+                   binding="mexHttpsBinding"
+                   contract="IMetadataExchange" />
+     </service>
+     <!-- Add secure WebHttpBinding config -->
+     <bindings>
+        <webHttpBinding>
+            <binding name="webHttpTransportSecurity">
+                <security mode="Transport" />
+            </binding>
+        </webHttpBinding>
+     </bindings>
+  </services>
+  <behaviors>
+      <serviceBehaviors>
+         <behavior name="ServiceBehaviour">
+             <serviceMetadata httpsGetEnabled="true"
+                              <!-- Make sure the service can 
+                                 be accessed only via HTTPS -->
+                              httpGetEnabled="false"/>
+             <serviceDebug includeExceptionDetailInFaults="false"/>
+         </behavior>
+      </serviceBehaviors>
+      <endpointBehaviors>
+         <behavior name="web">
+             <webHttp/>
+         </behavior>
+      </endpointBehaviors>
+  </behaviors>
+  <serviceHostingEnvironment multipleSiteBindingsEnabled="true"/>
+</system.serviceModel>
+
+--------------------------------------------------------

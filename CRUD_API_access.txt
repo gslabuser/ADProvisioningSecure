@@ -1,0 +1,37 @@
+-------------------------------------
+Create
+API: https://10.35.34.16:8889/Bcone.svc/adprovisioning/create POST
+Data to post ->
+{"First_Name":"test3","Last_Name":"user","Department":"testDept","Formatted_Phone":"9098898776",
+"Email":"test3@bcone.com","Display_Name":"test","Description":"test","Office":"testoffice","Street":"testStreet","PO_Box":"Pune","City":"Pune","State":"Maharashtra","Zip_Code":"411045",
+"Job_Title":"Manager","Company":"Bcone","Manager":"apurva.bakshi1@gslab.com","Employee_Type":"test","Employee_Number":"test","Expiration_Time":"24/01/2018"}
+-------------------------------------
+Search
+API: https://10.35.34.16:8889/Bcone.svc/adprovisioning/search	POST
+Data to post ->
+{
+"Email":"testUser@gslab.com"
+}
+-------------------------------------
+Update
+API: https://10.35.34.16:8889/Bcone.svc/adprovisioning/update	POST
+Data to post ->
+{
+	"Email":"test2@bcone.com","Property":"Last_Name","Value":"test2345"
+}
+
+-------------------------------------
+Delete
+API: https://10.35.34.16:8889/Bcone.svc/adprovisioning/delete	POST
+Data to post ->
+{
+"Email":"testUser@gslab.com"
+} 
+-------------------------------------
+Disable
+API: https://10.35.34.16:8889/Bcone.svc/adprovisioning/disable	POST
+Data to post ->
+{
+"Email":"testUser@gslab.com"
+}
+-------------------------------------
